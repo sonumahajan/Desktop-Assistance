@@ -1,10 +1,10 @@
-import pyttsx3 # for speeking strings
+import pyttsx3 # for speeking strings  (use pip3 install pyttsx3)
 import datetime #to get the date and time
-import speech_recognition as sr # to get the user input from microphone
-import wikipedia #to use the wikipedia info
+import speech_recognition as sr # to get the user input from microphone (use pip3 install speechRecognition)
+import wikipedia #to use the wikipedia info (use pip3 install wikipedia)
 import webbrowser #to open the browser
 import os, sys, subprocess #to use computer's file and directory
-import smtplib # to send the email
+import smtplib # to send the email 
 import random # to genrate a random number
 
 
@@ -55,7 +55,7 @@ def sendEmail(to, content):
     server.ehlo()
     server.starttls()
     server.login('your email', 'your password') # eneter your email and password but you to enable <less secure app> in your email privacy setting
-    server.sendmail('your email', to, content)
+    server.sendmail('your email', to, content) # eneter your email
     server.close()
     
 
