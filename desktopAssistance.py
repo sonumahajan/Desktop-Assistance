@@ -79,10 +79,8 @@ if __name__ == "__main__":
     # speak("hello sir i am sornu's assistance")
     wish()
     print("="*100)
-    a= True
-    while a==True:
-        # query = takeCommand().lower()
-        query = 'today news'
+    while True:
+        query = takeCommand().lower()
         if 'hello' in query: # condition for hello
             speak("hello sir how are you")
 
@@ -145,7 +143,6 @@ if __name__ == "__main__":
                 newnews = x["title"]
                 speaker(str(count), newnews)
                 count += 1
-            a=False
 
         elif 'ok buy' in query:
             speak("thank you for using me")
