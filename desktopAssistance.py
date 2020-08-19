@@ -6,7 +6,8 @@ import webbrowser #to open the browser
 import os, sys, subprocess #to use computer's file and directory
 import smtplib # to send the email 
 import random # to genrate a random number
-
+import requests # to get the web sites's data
+import json #to make changes in json
 
 def speak(data):
     engine = pyttsx3.init() #creating the engin
@@ -57,15 +58,31 @@ def sendEmail(to, content):
     server.login('your email', 'your password') # eneter your email and password but you to enable <less secure app> in your email privacy setting
     server.sendmail('your email', to, content) # eneter your email
     server.close()
-    
+
+def speaker(no,newnews):
+    engine = pyttsx3.init()
+        #getting details of current voice
+    voices = engine.getProperty('voices') 
+        #changing index, changes voices. 1 for female
+        # engine.setProperty('voice', voices[0].id)  #changing index, changes voices. o for male
+    # rate = engine.getProperty('rate')
+    engine.setProperty('rate', 110)
+    engine.setProperty('voice', voices[2].id ) 
+    print("-"*50)
+    print(f"news {no} : {newnews}")
+    engine.say(f"news {no}")
+    engine.say(newnews)
+    engine.runAndWait()
+    engine.stop()
 
 if __name__ == "__main__":
     # speak("hello sir i am sornu's assistance")
     wish()
     print("="*100)
-
-    while True:
-        query = takeCommand().lower()
+    a= True
+    while a==True:
+        # query = takeCommand().lower()
+        query = 'today news'
         if 'hello' in query: # condition for hello
             speak("hello sir how are you")
 
@@ -115,6 +132,20 @@ if __name__ == "__main__":
                 speak("email send")
             except Exception as e:
                 speak("sorry, i am not able to send this email")
+        elif 'today news' in query:
+            tokken = "Enter your news api tokken/key: "
+            code = "Enter iso code of your country: "
+            url = f"https://newsapi.org/v2/top-headlines?country={code}&apiKey={tokken}"
+            response = requests.get(url)
+            titles = response.json()
+            newtitles = titles["articles"]
+            count = 1
+            print("         TOP HEADLINES        ")
+            for x in newtitles:
+                newnews = x["title"]
+                speaker(str(count), newnews)
+                count += 1
+            a=False
 
         elif 'ok buy' in query:
             speak("thank you for using me")
